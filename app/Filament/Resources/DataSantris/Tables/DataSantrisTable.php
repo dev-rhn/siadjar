@@ -3,12 +3,13 @@
 namespace App\Filament\Resources\DataSantris\Tables;
 
 use Dom\Text;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
+use Filament\Tables\Table;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
 
 class DataSantrisTable
 {
@@ -57,8 +58,15 @@ class DataSantrisTable
                 //
             ])
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
+                ViewAction::make()
+                    ->button()
+                    ->color('info'),
+                EditAction::make()
+                    ->button()
+                    ->color('warning'),
+                DeleteAction::make()
+                    ->button()
+                    ->color('danger'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

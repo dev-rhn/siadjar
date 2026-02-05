@@ -118,7 +118,7 @@ class DataSantriForm
                             ->default('Reguler')
                             ->required(),
                         Select::make('status')
-                            ->label('Status')
+                            ->label('Status Santri')
                             ->placeholder('Pilih Status')
                             ->options([
                                 'Aktif' => 'Aktif',

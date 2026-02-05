@@ -9,6 +9,7 @@ use App\Filament\Resources\DataSantris\Pages\ViewDataSantri;
 use App\Filament\Resources\DataSantris\Schemas\DataSantriForm;
 use App\Filament\Resources\DataSantris\Schemas\DataSantriInfolist;
 use App\Filament\Resources\DataSantris\Tables\DataSantrisTable;
+use App\Filament\Resources\DataSantris\Widgets\DataSantriStats;
 use App\Models\DataSantri;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -54,6 +55,13 @@ class DataSantriResource extends Resource
     {
         return [
             //
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            DataSantriStats::class,
         ];
     }
 
