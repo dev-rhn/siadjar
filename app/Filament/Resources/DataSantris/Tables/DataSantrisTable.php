@@ -9,7 +9,12 @@ use Filament\Actions\ViewAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\ExportAction;
+use Filament\Actions\ImportAction;
 use Filament\Tables\Columns\TextColumn;
+
+use App\Filament\Exports\DataSantriExporter;
+use App\Filament\Imports\DataSantriImporter;
 
 class DataSantrisTable
 {
@@ -68,10 +73,21 @@ class DataSantrisTable
                     ->button()
                     ->color('danger'),
             ])
+            ->headerActions([
+
+            ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
+                ImportAction::make()
+                    ->importer(DataSantriImporter::class)
+                    ->label('Import Data')
+                    ->color('warning'),
+                ExportAction::make()
+                    ->exporter(DataSantriExporter::class)
+                    ->label('Export Data')
+                    ->color('info')
             ]);
     }
 }

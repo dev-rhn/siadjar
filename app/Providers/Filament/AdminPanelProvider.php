@@ -35,6 +35,7 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Dashboard::class,
             ])
+            ->databaseNotifications()
             ->widgets([
                 AccountWidget::class,
             ])
