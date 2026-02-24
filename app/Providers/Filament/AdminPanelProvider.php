@@ -6,12 +6,13 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -49,6 +50,20 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+            ])
+            ->navigationGroups([
+                NavigationGroup::make()
+                    ->label('Santri Management')
+                    ->icon(Heroicon::OutlinedUserGroup)
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Kepengasuhan')
+                    ->icon(Heroicon::OutlinedHome)
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Kepegawaian')
+                    ->icon(Heroicon::OutlinedUsers)
+                    ->collapsed(),
             ])
             ->authMiddleware([
                 Authenticate::class,

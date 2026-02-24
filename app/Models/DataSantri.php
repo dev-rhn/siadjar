@@ -9,13 +9,16 @@ class DataSantri extends Model
     protected $table = 'data_santris';
 
     protected $fillable = [
-        'nama',
-        'nik',
         'no_kk',
-        'jk',
+        'nik',
+        'nama',
+        'nisn',
         'tmp_lhr',
         'tgl_lhr',
+        'jk',
         'alamat',
+        'rt',
+        'rw',
         'kel',
         'kec',
         'kab',
@@ -39,4 +42,9 @@ class DataSantri extends Model
         'pendidikan_ibu',
         'pekerjaan_ibu',
     ];
+
+    public function kesehatan()
+    {
+        return $this->hasMany(Kesehatan::class);
+    }
 }
