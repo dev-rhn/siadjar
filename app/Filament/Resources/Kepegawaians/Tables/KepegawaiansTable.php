@@ -1,54 +1,47 @@
 <?php
 
-namespace App\Filament\Resources\DataSantris\Tables;
+namespace App\Filament\Resources\Kepegawaians\Tables;
 
-// use Dom\Text;
-use Filament\Tables\Table;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\ExportAction;
-use Filament\Actions\ImportAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 
-use App\Filament\Exports\DataSantriExporter;
-use App\Filament\Imports\DataSantriImporter;
-
-class DataSantrisTable
+class KepegawaiansTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('nik')
-                    ->label('NIK')
+                TextColumn::make('kd_pegawai')
+                    ->label('Kode Pegawai')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('nama')
-                    ->label('Nama Lengkap')
+                TextColumn::make('nama_pegawai')
+                    ->label('Nama Pegawai')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('jk')
-                    ->label('Jenis Kelamin')
+                TextColumn::make('jabatan.nama_jabatan')
+                    ->label('Jabatan')
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('alamat')
                     ->label('Alamat')
                     ->limit(50)
                     ->wrap(),
-                TextColumn::make('asal_sekolah')
-                    ->label('Asal Sekolah')
+                TextColumn::make('no_telp')
+                    ->label('No. Telepon')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('status')
-                    ->label('Status')
+                TextColumn::make('status_kepegawaian')
+                    ->label('Status Pegawai')
                     ->sortable(),
-                TextColumn::make('tahun_masuk')
-                    ->label('Tahun Masuk')
-                    ->sortable(),
-                TextColumn::make('jenjang')
-                    ->label('Jenjang')
+                TextColumn::make('tanggal_mulai_tugas')
+                    ->label('Tanggal Mulai Tugas')
+                    ->date()
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Dibuat Pada')
@@ -73,21 +66,10 @@ class DataSantrisTable
                     ->button()
                     ->color('danger'),
             ])
-            ->headerActions([
-
-            ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-                ImportAction::make()
-                    ->importer(DataSantriImporter::class)
-                    ->label('Import Data')
-                    ->color('warning'),
-                ExportAction::make()
-                    ->exporter(DataSantriExporter::class)
-                    ->label('Export Data')
-                    ->color('info')
             ]);
     }
 }

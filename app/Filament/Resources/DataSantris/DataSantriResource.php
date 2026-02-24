@@ -14,7 +14,6 @@ use App\Models\DataSantri;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use UnitEnum;
 
@@ -24,9 +23,9 @@ class DataSantriResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Santri Management';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = null;
 
-    protected static ?string $recordTitleAttribute = 'Data Santri';
+    protected static ?string $recordTitleAttribute = 'nama';
 
     protected static ?string $navigationLabel = 'Data Santri';
 

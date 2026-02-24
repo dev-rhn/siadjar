@@ -42,14 +42,15 @@ class DataSantriForm
                             ->required(),
                         TextInput::make('tgl_lhr')
                             ->label('Tanggal Lahir')
+                            ->type('date')
                             ->placeholder('Masukkan Tanggal Lahir')
                             ->required(),
                         Select::make('jk')
                             ->label('Jenis Kelamin')
                             ->placeholder('Pilih Jenis Kelamin')
                             ->options([
-                                'Laki-laki', 
-                                'Perempuan'
+                                'Laki-laki' => 'Laki-laki', 
+                                'Perempuan' => 'Perempuan',
                                 ])
                             ->required(),
                     ])
