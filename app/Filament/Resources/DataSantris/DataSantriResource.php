@@ -6,6 +6,8 @@ use App\Filament\Resources\DataSantris\Pages\CreateDataSantri;
 use App\Filament\Resources\DataSantris\Pages\EditDataSantri;
 use App\Filament\Resources\DataSantris\Pages\ListDataSantris;
 use App\Filament\Resources\DataSantris\Pages\ViewDataSantri;
+use App\Filament\Resources\DataSantris\RelationManagers\CatatanPelanggaransRelationManager;
+use App\Filament\Resources\DataSantris\RelationManagers\KesehatanRelationManager;
 use App\Filament\Resources\DataSantris\Schemas\DataSantriForm;
 use App\Filament\Resources\DataSantris\Schemas\DataSantriInfolist;
 use App\Filament\Resources\DataSantris\Tables\DataSantrisTable;
@@ -53,7 +55,8 @@ class DataSantriResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            CatatanPelanggaransRelationManager::class,
+            KesehatanRelationManager::class,
         ];
     }
 
@@ -72,5 +75,15 @@ class DataSantriResource extends Resource
             'view' => ViewDataSantri::route('/{record}'),
             'edit' => EditDataSantri::route('/{record}/edit'),
         ];
+    }
+
+    public function getContentTabLabel(): ?string
+    {
+        return null;
+    }
+
+    public function hasCombinedRelationManagerTabsWithContent(): bool
+    {
+        return false;
     }
 }

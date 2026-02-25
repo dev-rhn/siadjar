@@ -32,16 +32,12 @@ class KepegawaiansTable
                     ->label('Alamat')
                     ->limit(50)
                     ->wrap(),
-                TextColumn::make('no_telp')
+                TextColumn::make('no_telepon')
                     ->label('No. Telepon')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('status_kepegawaian')
                     ->label('Status Pegawai')
-                    ->sortable(),
-                TextColumn::make('tanggal_mulai_tugas')
-                    ->label('Tanggal Mulai Tugas')
-                    ->date()
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Dibuat Pada')

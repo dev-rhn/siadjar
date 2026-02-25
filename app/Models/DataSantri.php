@@ -47,4 +47,9 @@ class DataSantri extends Model
     {
         return $this->hasMany(Kesehatan::class);
     }
+
+    public function catatanPelanggarans()
+    {
+        return $this->hasMany(CatatanPelanggaran::class);
+    }
 }

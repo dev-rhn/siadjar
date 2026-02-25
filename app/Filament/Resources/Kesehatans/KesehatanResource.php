@@ -30,6 +30,10 @@ class KesehatanResource extends Resource
 
     protected static ?string $slug = 'kesehatan';
 
+    protected static ?string $pluralModelLabel = 'Data Kesehatan';
+    
+    protected static ?string $modelLabel = 'Data Kesehatan';
+
     public static function form(Schema $schema): Schema
     {
         return KesehatanForm::configure($schema);

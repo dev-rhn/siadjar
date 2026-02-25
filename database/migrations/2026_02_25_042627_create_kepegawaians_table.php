@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('jabatan_id')->nullable()->constrained('jabatans')->onDelete('set null');
             $table->string('kd_pegawai')->unique();
             $table->string('nama_pegawai');
-            $table->string('jabatan');
             $table->string('no_telepon');
             $table->string('alamat');
             $table->string('status_kepegawaian');
