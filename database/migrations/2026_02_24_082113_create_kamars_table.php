@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('kd_kamar')->unique();
             $table->string('nama_kamar');
             $table->integer('kapasitas');
-            $table->string('nama_pengasuh');
+            $table->string('keterangan')->nullable();
+            $table->string('pegawai_id')->nullable();
             $table->timestamps();
         });
     }

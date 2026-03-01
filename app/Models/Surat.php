@@ -20,6 +20,7 @@ class Surat extends Model
         'tanggal',
         'perihal',
         'keterangan',
+        'lampiran',
         'status',
     ];
 

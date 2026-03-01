@@ -15,7 +15,6 @@ class Kepegawaian extends Model
         'no_telepon', 
         'alamat',
         'status_kepegawaian', 
-        'tanggal_mulai_tugas', 
     ];
 
     public function user()

@@ -2,12 +2,17 @@
 
 namespace App\Filament\Resources\Surats\Tables;
 
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
+use Filament\Actions\Action;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Storage;
 
 class SuratsTable
 {
@@ -60,13 +65,28 @@ class SuratsTable
                     ->relationship('jenisSurat', 'nama_jenis'),
             ])
             ->recordActions([
-                // ViewAction::make(),
-                // EditAction::make(),
+                Action::make('download_lampiran')
+                    ->label('Lampiran')
+                    ->button()
+                    ->icon('heroicon-o-paper-clip')
+                    ->color('success')
+                    ->visible(fn ($record) => $record->lampiran !== null)
+                    ->url(fn ($record) => Storage::disk('public')->url($record->lampiran))
+                    ->openUrlInNewTab(),
+                ViewAction::make()
+                    ->button()
+                    ->color('info'),
+                EditAction::make()
+                    ->button()
+                    ->color('warning'),
+                DeleteAction::make()
+                    ->button()
+                    ->color('danger'),
             ])
             ->toolbarActions([
-                // BulkActionGroup::make([
-                //     DeleteBulkAction::make(),
-                // ]),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
             ]);
     }
 }

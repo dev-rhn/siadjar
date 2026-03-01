@@ -8,6 +8,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Schema;
 
 class SuratForm
@@ -86,6 +87,17 @@ class SuratForm
                 ->required(),
 
             Textarea::make('keterangan')->columnSpanFull(),
+            
+            FileUpload::make('lampiran')
+                ->label('Lampiran')
+                ->disk('public')
+                ->directory('lampiran-surat')
+                ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png', 'application/msword', 
+                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
+                ->maxSize(5120) // 5MB
+                ->downloadable()
+                ->openable()
+                ->columnSpanFull(),
 
             Repeater::make('penerimaSurats')
                 ->label('Penerima Surat')

@@ -41,6 +41,8 @@ class DataSantri extends Model
         'tgl_lhr_ibu',
         'pendidikan_ibu',
         'pekerjaan_ibu',
+        'foto_santri',
+        'foto_kk',
     ];
 
     public function kesehatan()

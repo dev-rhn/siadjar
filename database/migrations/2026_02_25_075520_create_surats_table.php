@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->string('perihal');
             $table->text('keterangan')->nullable();
+            $table->string('lampiran')->nullable();
             $table->enum('status', ['Draft', 'Diajukan', 'Disetujui', 'Ditolak'])->default('Draft');
             $table->timestamps();
         });
