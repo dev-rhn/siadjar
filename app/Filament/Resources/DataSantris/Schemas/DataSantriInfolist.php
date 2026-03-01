@@ -2,12 +2,13 @@
 
 namespace App\Filament\Resources\DataSantris\Schemas;
 
-use Filament\Schemas\Schema;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Components\Section;
+use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\ViewEntry;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\TextColumn;
 
 class DataSantriInfolist
 {
@@ -134,6 +135,23 @@ class DataSantriInfolist
                         TextEntry::make('updated_at')
                             ->label('Diperbarui Pada')
                             ->dateTime('d M Y H:i'),
+                    ]),
+
+                Section::make("Dokumen & Foto")
+                    ->columns(2)
+                    ->columnSpanFull()
+                    ->components([
+                        ImageEntry::make('foto_santri')
+                            ->label('Foto Santri')
+                            ->circular()
+                            ->extraImgAttributes([
+                                'alt' => 'Foto Santri',
+                                'loading' => 'lazy',
+                            ]),
+
+                        ImageEntry::make('foto_kk')
+                            ->label('Foto Kartu Keluarga')
+                            ->grow(false), 
                     ]),
             ]);
     }

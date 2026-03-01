@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources\DataSantris\Schemas;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -18,18 +20,21 @@ class DataSantriForm
                     ->schema([
                         TextInput::make('no_kk')
                             ->label('Nomor Kartu Keluarga')
+                            ->helperText('Pastikan nomor KK terdiri dari 16 digit angka.')
                             ->maxLength(16)
                             ->placeholder('Masukkan Nomor Kartu Keluarga')
                             ->required(),
                         TextInput::make('nik')
                             ->label('NIK')
                             ->placeholder('Masukkan NIK')
+                            ->helperText('Pastikan NIK terdiri dari 16 digit angka.')
                             ->maxLength(16)
                             ->required()
                             ->unique(),
                         TextInput::make('nisn')
                             ->label('NISN')
                             ->placeholder('Masukkan NISN')
+                            ->helperText('Pastikan NISN terdiri dari 10 digit angka.')
                             ->required(),
                         TextInput::make('nama')
                             ->label('Nama Lengkap')
@@ -150,6 +155,7 @@ class DataSantriForm
                         TextInput::make('nik_ayah')
                             ->label('NIK Ayah/Wali')
                             ->placeholder('Masukkan NIK Ayah/Wali')
+                            ->helperText('Pastikan NIK Ayah/Wali terdiri dari 16 digit angka.')
                             ->required()
                             ->maxLength(16),
                         TextInput::make('nama_ayah')
@@ -182,6 +188,7 @@ class DataSantriForm
                         TextInput::make('nik_ibu')
                             ->label('NIK Ibu/Wali')
                             ->placeholder('Masukkan NIK Ibu/Wali')
+                            ->helperText('Pastikan NIK Ibu/Wali terdiri dari 16 digit angka.')
                             ->required()
                             ->maxLength(16),
                         TextInput::make('nama_ibu')
@@ -207,6 +214,32 @@ class DataSantriForm
                             ->required(),
                     ])
                     ->columns(3)
+                    ->columnSpanFull(),
+                Section::make('Dokumen Pendukung')
+                    ->description('Unggah foto santri dan scan Kartu Keluarga dalam format JPG/PNG.')
+                    ->schema([
+                        Grid::make(2)
+                            ->schema([
+                                FileUpload::make('foto_santri')
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('santri/foto') 
+                                    ->imageEditor()
+                                    ->maxSize(2048)
+                                    ->visibility('public')
+                                    ->label('Foto Santri')
+                                    ->helperText('Gunakan latar belakang biru/merah, max 2MB.'),
+
+                                FileUpload::make('foto_kk')
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('santri/kk')
+                                    ->label('Foto Kartu Keluarga')
+                                    ->visibility('public')
+                                    ->imageEditor()
+                                    ->helperText('Pastikan seluruh bagian KK terlihat jelas.'),
+                            ]),
+                    ])->collapsible()
                     ->columnSpanFull(),
             ]);
     }

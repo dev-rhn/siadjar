@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Kepegawaians\Schemas;
 
-use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
@@ -21,7 +20,6 @@ class KepegawaianForm
                                 ->relationship('user', 'name')
                                 ->searchable()
                                 ->preload()
-                                ->required()
                                 ->unique(ignoreRecord: true)
                                 ->helperText('Satu user hanya bisa memiliki satu profil pegawai.'),
                         ])->columnSpanFull(),
@@ -55,19 +53,13 @@ class KepegawaianForm
                                     'Honor' => 'Honor',
                                 ])
                                 ->required(),
-                            DatePicker::make('tanggal_mulai_tugas')
-                                ->required(),
-                        ])
-                        ->columnSpanFull()
-                        ->columns(2),
-
-                    Section::make('Alamat')
-                        ->schema([
                             TextInput::make('alamat')
                                 ->label('Alamat')
                                 ->placeholder('Masukkan Alamat Pegawai')
                                 ->required(),
-                        ])->columnSpanFull(),
+                        ])
+                        ->columnSpanFull()
+                        ->columns(2),
             ]);
     }
 }

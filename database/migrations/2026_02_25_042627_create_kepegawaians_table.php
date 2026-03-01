@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('kepegawaians', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('jabatan_id')->nullable()->constrained('jabatans')->onDelete('set null');
             $table->string('kd_pegawai')->unique();
             $table->string('nama_pegawai');
-            $table->string('jabatan');
             $table->string('no_telepon');
             $table->string('alamat');
             $table->string('status_kepegawaian');

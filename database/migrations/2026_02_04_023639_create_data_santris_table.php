@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('nik', 16)->unique();
             $table->string('nama');
             $table->string('nisn', 10)->nullable();
+            $table->string('foto_santri')->nullable();
+            $table->string('foto_kk')->nullable();
             $table->string('tmp_lhr');
             $table->date('tgl_lhr');
             $table->enum('jk', ['Laki-laki', 'Perempuan']);

@@ -24,7 +24,7 @@ class KepegawaianResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = null;
 
-    protected static ?string $recordTitleAttribute = 'name_pegawai';
+    protected static ?string $recordTitleAttribute = 'nama_pegawai';
     
     protected static ?string $navigationLabel = 'Data Kepegawaian';
     

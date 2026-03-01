@@ -41,10 +41,17 @@ class DataSantri extends Model
         'tgl_lhr_ibu',
         'pendidikan_ibu',
         'pekerjaan_ibu',
+        'foto_santri',
+        'foto_kk',
     ];
 
     public function kesehatan()
     {
         return $this->hasMany(Kesehatan::class);
+    }
+
+    public function catatanPelanggarans()
+    {
+        return $this->hasMany(CatatanPelanggaran::class);
     }
 }

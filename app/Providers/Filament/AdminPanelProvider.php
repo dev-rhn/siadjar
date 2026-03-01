@@ -53,6 +53,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->navigationGroups([
                 NavigationGroup::make()
+                    ->label('Administrasi')
+                    ->icon(Heroicon::OutlinedDocument)
+                    ->collapsed(),
+                NavigationGroup::make()
                     ->label('Santri Management')
                     ->icon(Heroicon::OutlinedUserGroup)
                     ->collapsed(),
