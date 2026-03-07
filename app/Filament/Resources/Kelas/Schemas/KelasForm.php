@@ -32,9 +32,11 @@ class KelasForm
                                 'SMA' => 'SMA',
                             ])
                             ->required(),
-                        TextInput::make('wali_kelas')
-                            ->label('Wali Kelas')
-                            ->placeholder('Masukkan Nama Wali Kelas')
+                        Select::make('pegawai_id')
+                            ->label('Nama Wali Kelas')
+                            ->relationship('waliKelas', 'nama_pegawai')
+                            ->searchable()
+                            ->preload()
                             ->required(),
                     ])
                     ->columns(2)

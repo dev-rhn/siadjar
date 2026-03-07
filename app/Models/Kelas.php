@@ -12,6 +12,11 @@ class Kelas extends Model
         'kd_kelas',
         'nama_kelas',
         'tingkat',
-        'wali_kelas',
+        'pegawai_id',
     ];
+
+    public function waliKelas()
+    {
+        return $this->belongsTo(Kepegawaian::class, 'pegawai_id');
+    }
 }

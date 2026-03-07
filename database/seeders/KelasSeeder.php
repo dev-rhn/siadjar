@@ -16,37 +16,37 @@ class KelasSeeder extends Seeder
                 'kd_kelas' => 'SMP001',
                 'nama_kelas' => 'Kelas 1',
                 'tingkat' => 'SMP',
-                'wali_kelas' => 'Budi Santoso',
+                'pegawai_id' => '2',
             ],
             [
                 'kd_kelas' => 'SMP002',
                 'nama_kelas' => 'Kelas 2',
                 'tingkat' => 'SMP',
-                'wali_kelas' => 'Siti Aminah',
+                'pegawai_id' => '3',
             ],
             [
                 'kd_kelas' => 'SMP003',
                 'nama_kelas' => 'Kelas 3',
                 'tingkat' => 'SMP',
-                'wali_kelas' => 'Ahmad Fauzi',
+                'pegawai_id' => '3',
             ],
             [
                 'kd_kelas' => 'SMA001',
                 'nama_kelas' => 'Kelas 4',
                 'tingkat' => 'SMA',
-                'wali_kelas' => 'Dewi Lestari',
+                'pegawai_id' => '2',
             ],
             [
                 'kd_kelas' => 'SMA002',
                 'nama_kelas' => 'Kelas 5',
                 'tingkat' => 'SMA',
-                'wali_kelas' => 'Rizky Pratama',
+                'pegawai_id' => '3',
             ],
             [
                 'kd_kelas' => 'SMA003',
                 'nama_kelas' => 'Kelas 6',
                 'tingkat' => 'SMA',
-                'wali_kelas' => 'Lina Marlina',
+                'pegawai_id' => '2',
             ],
         ];
 

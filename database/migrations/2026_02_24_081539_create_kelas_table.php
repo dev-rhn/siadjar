@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('kd_kelas')->unique();
             $table->string('nama_kelas');
             $table->string('tingkat');
-            $table->string('wali_kelas');
+            $table->string('pegawai_id');
             $table->timestamps();
         });
     }

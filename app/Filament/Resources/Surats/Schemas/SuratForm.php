@@ -24,7 +24,7 @@ class SuratForm
                     ->live() // sudah ada
                     ->afterStateUpdated(function ($set, $get) {
                         if ($get('arah') && $get('jenis_surat_id') && $get('tanggal')) {
-                            $set('nomor_surat', \App\Models\Surat::generateNomor(
+                            $set('nomor_surat', Surat::generateNomor(
                                 $get('arah'),
                                 $get('jenis_surat_id'),
                                 $get('tanggal')
@@ -39,7 +39,7 @@ class SuratForm
                     ->live() // sudah ada
                     ->afterStateUpdated(function ($set, $get) {
                         if ($get('arah') && $get('jenis_surat_id') && $get('tanggal')) {
-                            $set('nomor_surat', \App\Models\Surat::generateNomor(
+                            $set('nomor_surat', Surat::generateNomor(
                                 $get('arah'),
                                 $get('jenis_surat_id'),
                                 $get('tanggal')
@@ -53,7 +53,7 @@ class SuratForm
                     ->live() // sudah ada
                     ->afterStateUpdated(function ($set, $get) {
                         if ($get('arah') && $get('jenis_surat_id') && $get('tanggal')) {
-                            $set('nomor_surat', \App\Models\Surat::generateNomor(
+                            $set('nomor_surat', Surat::generateNomor(
                                 $get('arah'),
                                 $get('jenis_surat_id'),
                                 $get('tanggal')

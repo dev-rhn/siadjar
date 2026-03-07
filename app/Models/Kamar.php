@@ -12,6 +12,12 @@ class Kamar extends Model
         'kd_kamar',
         'nama_kamar',
         'kapasitas',
-        'nama_pengasuh',
+        'keterangan',
+        'pegawai_id',
     ];
+
+    public function pengasuh()
+    {
+        return $this->belongsTo(Kepegawaian::class, 'pegawai_id');
+    }
 }
