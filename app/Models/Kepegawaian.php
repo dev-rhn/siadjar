@@ -26,4 +26,14 @@ class Kepegawaian extends Model
     {
         return $this->belongsTo(Jabatan::class);
     }
+
+    public function kamar()
+    {
+        return $this->hasMany(Kamar::class);
+    }
+
+    public function kelas()
+    {
+        return $this->hasMany(Kelas::class);
+    }
 }

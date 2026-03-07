@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Kamars\Schemas;
 
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -26,13 +27,15 @@ class KamarForm
                             ->label('Kapasitas')
                             ->placeholder('Masukkan Kapasitas Kamar')
                             ->required(),
-                        TextInput::make('nama_pengasuh')
+                        Select::make('pegawai_id')
                             ->label('Nama Pengasuh')
-                            ->placeholder('Masukkan Nama Pengasuh Kamar')
+                            ->relationship('pengasuh', 'nama_pegawai')
+                            ->searchable()
+                            ->preload()
                             ->required(),
-                        ])
-                        ->columns(2)
-                        ->columnSpanFull(),
+                    ])
+                    ->columns(2)
+                    ->columnSpanFull(),
             ]);
     }
 }
