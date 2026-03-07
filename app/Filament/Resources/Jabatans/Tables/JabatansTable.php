@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources\Jabatans\Tables;
 
+use App\Filament\Exports\JabatanExporter;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ExportAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -47,6 +49,10 @@ class JabatansTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
+                ExportAction::make()
+                    ->exporter(JabatanExporter::class)
+                    ->label('Export Data')
+                    ->color('info')
             ]);
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources\Kamars\Tables;
 
+use App\Filament\Exports\KamarExporter;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ExportAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -58,6 +60,10 @@ class KamarsTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
+                ExportAction::make()
+                    ->exporter(KamarExporter::class)
+                    ->label('Export Data')
+                    ->color('info')
             ]);
     }
 }

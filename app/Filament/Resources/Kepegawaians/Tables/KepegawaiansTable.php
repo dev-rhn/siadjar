@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources\Kepegawaians\Tables;
 
+use App\Filament\Exports\KepegawaianExporter;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ExportAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -66,6 +68,10 @@ class KepegawaiansTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
+                ExportAction::make()
+                    ->exporter(KepegawaianExporter::class)
+                    ->label('Export Data')
+                    ->color('info')
             ]);
     }
 }

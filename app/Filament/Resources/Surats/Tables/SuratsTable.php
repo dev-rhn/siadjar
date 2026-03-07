@@ -2,11 +2,13 @@
 
 namespace App\Filament\Resources\Surats\Tables;
 
+use App\Filament\Exports\SuratExporter;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ExportAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -87,6 +89,10 @@ class SuratsTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
+                ExportAction::make()
+                    ->exporter(SuratExporter::class)
+                    ->label('Export Data')
+                    ->color('info')
             ]);
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources\Kesehatans\Tables;
 
+use App\Filament\Exports\KesehatanExporter;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ExportAction;
 use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Builder;
 use Filament\Tables\Columns\IconColumn;
@@ -71,6 +73,10 @@ class KesehatansTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
+                ExportAction::make()
+                    ->exporter(KesehatanExporter::class)
+                    ->label('Export Data')
+                    ->color('info')
             ]);
     }
 }
