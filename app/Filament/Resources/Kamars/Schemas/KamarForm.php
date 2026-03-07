@@ -27,6 +27,10 @@ class KamarForm
                             ->label('Kapasitas')
                             ->placeholder('Masukkan Kapasitas Kamar')
                             ->required(),
+                        TextInput::make('keterangan')
+                            ->label('Keterangan')
+                            ->placeholder('Masukkan Keterangan Kamar')
+                            ->required(),
                         Select::make('pegawai_id')
                             ->label('Nama Pengasuh')
                             ->relationship('pengasuh', 'nama_pegawai')

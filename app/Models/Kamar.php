@@ -12,6 +12,7 @@ class Kamar extends Model
         'kd_kamar',
         'nama_kamar',
         'kapasitas',
+        'keterangan',
         'pegawai_id',
     ];
 
