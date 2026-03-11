@@ -4,6 +4,7 @@ namespace App\Filament\Resources\JenisSurats\Tables;
 
 use App\Filament\Exports\JenisSuratExporter;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ExportAction;
@@ -30,8 +31,15 @@ class JenisSuratsTable
                 //
             ])
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
+                ViewAction::make()
+                    ->button()
+                    ->color('info'),
+                EditAction::make()
+                    ->button()
+                    ->color('warning'),
+                DeleteAction::make()
+                    ->button()
+                    ->color('danger'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
