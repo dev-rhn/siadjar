@@ -47,11 +47,11 @@ class DataSantri extends Model
 
     public function kesehatan()
     {
-        return $this->hasMany(Kesehatan::class);
+        return $this->hasMany(Kesehatan::class, "data_santri_id");
     }
 
     public function catatanPelanggarans()
     {
-        return $this->hasMany(CatatanPelanggaran::class);
+        return $this->hasMany(CatatanPelanggaran::class, "data_santri_id");
     }
 }
