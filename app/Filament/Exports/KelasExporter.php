@@ -15,13 +15,20 @@ class KelasExporter extends Exporter
     public static function getColumns(): array
     {
         return [
-            ExportColumn::make('id'),
-            ExportColumn::make('kd_kelas'),
-            ExportColumn::make('nama_kelas'),
-            ExportColumn::make('tingkat'),
-            ExportColumn::make('pegawai_id'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('id')
+                ->label('ID'),
+            ExportColumn::make('kd_kelas')
+                ->label('Kode Kelas'),
+            ExportColumn::make('nama_kelas')
+                ->label('Nama Kelas'),
+            ExportColumn::make('tingkat')
+                ->label('Tingkat'),
+            ExportColumn::make('waliKelas.nama_pegawai')
+                ->label('Nama Wali Kelas'),
+            ExportColumn::make('created_at')
+                ->label('Dibuat Pada'),
+            ExportColumn::make('updated_at')
+                ->label('Diperbarui Pada'),
         ];
     }
 

@@ -146,8 +146,18 @@ class DataSantriForm
                                 'SMA' => 'SMA',
                             ])
                             ->required(),
+                        Select::make('kelas_id')
+                            ->label('Kelas')
+                            ->placeholder('Pilih Kelas')
+                            ->relationship('kelas', 'nama_kelas')
+                            ->required(),
+                        Select::make('kamar_id')
+                            ->label('Kamar')
+                            ->placeholder('Pilih Kamar')
+                            ->relationship('kamar', 'nama_kamar')
+                            ->required(),
                     ])
-                    ->columns(4)
+                    ->columns(3)
                     ->columnSpanFull(),
                 Section::make('Data Ayah / Wali')
                     ->description('Lengkapi data ayah/wali santri dengan benar.')

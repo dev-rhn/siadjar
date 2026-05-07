@@ -125,8 +125,8 @@
     {{-- DATA PENDIDIKAN --}}
     <div class="section-title">Data Pendidikan</div>
     <table class="info" style="margin-top:8px;">
-        <tr><td>Kelas</td><td>{{ $santri->kelas ?? '-' }}</td></tr>
-        <tr><td>Kamar</td><td>{{ $santri->kamar ?? '-' }}</td></tr>
+        <tr><td>Kelas</td><td>{{ $santri->kelas->nama_kelas ?? '-' }}</td></tr>
+        <tr><td>Kamar</td><td>{{ $santri->kamar->nama_kamar ?? '-' }}</td></tr>
         <tr><td>Tahun Masuk</td><td>{{ $santri->tahun_masuk ?? '-' }}</td></tr>
         <tr><td>Status</td><td>{{ $santri->status }}</td></tr>
     </table>

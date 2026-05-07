@@ -3,9 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\DataSantri;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
+use App\Models\Kamar;
+use App\Models\Kelas;
 use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
 
 
 class SantriSeeder extends Seeder
@@ -29,7 +30,14 @@ class SantriSeeder extends Seeder
                 'SMA' => $faker->numberBetween(16, 18),
             };
 
+        $kamarIds = Kamar::pluck('id')->toArray();
+        $kelasIds = Kelas::pluck('id')->toArray();
+
             DataSantri::create([
+
+                'kamar_id' => $faker->randomElement($kamarIds),
+                'kelas_id' => $faker->randomElement($kelasIds),
+
                 'no_kk' => $no_kk,
                 'nik' => $faker->numerify('3201############'),
                 'nama' => $faker->name(),

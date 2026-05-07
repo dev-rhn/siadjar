@@ -15,13 +15,20 @@ class CatatanPelanggaranExporter extends Exporter
     public static function getColumns(): array
     {
         return [
-            ExportColumn::make('id'),
-            ExportColumn::make('data_santri_id'),
-            ExportColumn::make('pelanggaran_id'),
-            ExportColumn::make('tanggal_kejadian'),
-            ExportColumn::make('catatan'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('id')
+                ->label('ID'),
+            ExportColumn::make('dataSantri.data_santri_id')
+                ->label('Nama Santri'),
+            ExportColumn::make('pelanggaran.pelanggaran_id')
+                ->label('Pelanggaran'),
+            ExportColumn::make('tanggal_kejadian')
+                ->label('Tanggal Kejadian'),
+            ExportColumn::make('catatan')
+                ->label('Catatan'),
+            ExportColumn::make('created_at')
+                ->label('Dibuat Pada'),
+            ExportColumn::make('updated_at')
+                ->label('Diperbarui Pada'),
         ];
     }
 

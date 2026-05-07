@@ -20,4 +20,9 @@ class Kamar extends Model
     {
         return $this->belongsTo(Kepegawaian::class, 'pegawai_id');
     }
+
+    public function santris()
+    {
+        return $this->hasMany(DataSantri::class, 'kamar_id');
+    }
 }

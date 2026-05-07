@@ -15,11 +15,16 @@ class KategoriPelanggaranExporter extends Exporter
     public static function getColumns(): array
     {
         return [
-            ExportColumn::make('id'),
-            ExportColumn::make('nama_kategori'),
-            ExportColumn::make('keterangan'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('id')
+                ->label('ID'),
+            ExportColumn::make('nama_kategori')
+                ->label('Nama Kategori'),
+            ExportColumn::make('keterangan')
+                ->label('Keterangan'),
+            ExportColumn::make('created_at')
+                ->label('Dibuat Pada'),
+            ExportColumn::make('updated_at')
+                ->label('Diperbarui Pada'),
         ];
     }
 

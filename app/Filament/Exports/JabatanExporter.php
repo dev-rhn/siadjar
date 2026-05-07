@@ -15,12 +15,18 @@ class JabatanExporter extends Exporter
     public static function getColumns(): array
     {
         return [
-            ExportColumn::make('id'),
-            ExportColumn::make('kd_jabatan'),
-            ExportColumn::make('nama_jabatan'),
-            ExportColumn::make('keterangan'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('id')
+                ->label('ID'),
+            ExportColumn::make('kd_jabatan')
+                ->label('Kode Jabatan'),
+            ExportColumn::make('nama_jabatan')
+                ->label('Nama Jabatan'),
+            ExportColumn::make('keterangan')
+                ->label('Keterangan'),
+            ExportColumn::make('created_at')
+                ->label('Dibuat Pada'),
+            ExportColumn::make('updated_at')
+                ->label('Diperbarui Pada'),
         ];
     }
 

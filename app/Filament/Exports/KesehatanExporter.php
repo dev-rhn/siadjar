@@ -15,13 +15,20 @@ class KesehatanExporter extends Exporter
     public static function getColumns(): array
     {
         return [
-            ExportColumn::make('id'),
-            ExportColumn::make('data_santri_id'),
-            ExportColumn::make('nama_penyakit'),
-            ExportColumn::make('obat'),
-            ExportColumn::make('tanggal_sakit'),
-            ExportColumn::make('keterangan'),
-            ExportColumn::make('is_sembuh'),
+            ExportColumn::make('id')
+                ->label('ID'),
+            ExportColumn::make('dataSantri.nama_santri')
+                ->label('Nama Santri'),
+            ExportColumn::make('nama_penyakit')
+                ->label('Nama Penyakit'),
+            ExportColumn::make('obat')
+                ->label('Obat'),
+            ExportColumn::make('tanggal_sakit')
+                ->label('Tanggal Sakit'),
+            ExportColumn::make('keterangan')
+                ->label('Keterangan'),
+            ExportColumn::make('is_sembuh')
+                ->label('Sembuh'),
             ExportColumn::make('created_at'),
             ExportColumn::make('updated_at'),
         ];
