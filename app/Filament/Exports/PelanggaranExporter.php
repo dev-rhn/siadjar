@@ -17,11 +17,16 @@ class PelanggaranExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label('ID'),
-            ExportColumn::make('kategori_pelanggaran_id'),
-            ExportColumn::make('nama_pelanggaran'),
-            ExportColumn::make('poin'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('kategoriPelanggaran.nama_kategori')
+                ->label('Kategori Pelanggaran'),
+            ExportColumn::make('nama_pelanggaran')
+                ->label('Nama Pelanggaran'),
+            ExportColumn::make('poin')
+                ->label('Poin'),
+            ExportColumn::make('created_at')
+                ->label('Dibuat Pada'),
+            ExportColumn::make('updated_at')
+                ->label('Diperbarui Pada'),
         ];
     }
 

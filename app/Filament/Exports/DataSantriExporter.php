@@ -31,6 +31,10 @@ class DataSantriExporter extends Exporter
                 ->label('Tanggal Lahir'),
             ExportColumn::make('jk')
                 ->label('Jenis Kelamin'),
+            ExportColumn::make('kelas.nama_kelas')
+                ->label('Kelas'),
+            ExportColumn::make('kamar.nama_kamar')
+                ->label('Kamar'),
             ExportColumn::make('alamat')
                 ->label('Alamat'),
             ExportColumn::make('rt')

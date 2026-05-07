@@ -26,7 +26,7 @@ class KelasTable
                     ->label('Tingkat')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('wali_kelas')
+                TextColumn::make('waliKelas.nama_pegawai')
                     ->label('Wali Kelas')
                     ->searchable()
                     ->sortable(),

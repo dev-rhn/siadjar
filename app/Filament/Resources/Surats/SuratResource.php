@@ -27,6 +27,8 @@ class SuratResource extends Resource
     protected static ?string $recordTitleAttribute = 'nomor_surat';
     
     protected static ?string $navigationLabel = 'Data Surat';
+
+    protected static ?string $slug = 'surat';
     
     protected static ?string $pluralModelLabel = 'Data Surat';
     

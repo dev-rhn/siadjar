@@ -29,7 +29,7 @@ class KamarsTable
                 TextColumn::make('kapasitas')   
                     ->label('Kapasitas')
                     ->sortable(),
-                TextColumn::make('nama_pengasuh')
+                TextColumn::make('pengasuh.nama_pegawai')
                     ->label('Nama Pengasuh')
                     ->searchable()
                     ->sortable(),

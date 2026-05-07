@@ -13,6 +13,8 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ExportAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class DataSantrisTable
@@ -36,15 +38,24 @@ class DataSantrisTable
                     ->label('Alamat')
                     ->limit(50)
                     ->wrap(),
-                TextColumn::make('asal_sekolah')
-                    ->label('Asal Sekolah')
+                TextColumn::make('kamar.nama_kamar')
+                    ->label('Kamar')
+                    ->badge()
+                    ->color('info')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('kelas.nama_kelas')
+                    ->label('Kelas')
+                    ->badge()
+                    ->color('success')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('tahun_masuk')
+                    ->label('Tahun Masuk')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('status')
                     ->label('Status')
-                    ->sortable(),
-                TextColumn::make('tahun_masuk')
-                    ->label('Tahun Masuk')
                     ->sortable(),
                 TextColumn::make('jenjang')
                     ->label('Jenjang')
@@ -59,17 +70,74 @@ class DataSantrisTable
                     ->sortable(),
             ])
             ->filters([
-                //
-            ])
+                SelectFilter::make('jenjang')
+                    ->label('Filter Jenjang')
+                    ->options([
+                        'SD' => 'SD',
+                        'SMP' => 'SMP',
+                        'SMA' => 'SMA',
+                    ]),
+                SelectFilter::make('keterangan')
+                    ->label('Filter Keterangan')
+                    ->options([
+                        'Dhuafa' => 'Dhuafa',
+                        'Yatim' => 'Yatim',
+                        'Piatu' => 'Piatu',
+                        'Yatim Piatu' => 'Yatim Piatu',
+                        'Reguler' => 'Reguler',
+                    ]),
+                    SelectFilter::make('tahun_masuk')
+                        ->label('Filter Tahun Masuk')
+                        ->options(function () {
+                            return \App\Models\DataSantri::query()
+                                ->distinct()
+                                ->orderBy('tahun_masuk', 'desc')
+                                ->pluck('tahun_masuk', 'tahun_masuk')
+                                ->toArray();
+                        })
+                        ->placeholder('Semua Tahun'),
+
+                SelectFilter::make('kamar_id')
+                    ->label('Filter Kamar')
+                    ->relationship('kamar', 'nama_kamar')
+                    ->options(function () {
+                        return \App\Models\Kamar::pluck('nama_kamar', 'id')->toArray();
+                    }),
+
+                SelectFilter::make('kelas_id')
+                    ->label('Filter Kelas')
+                    ->relationship('kelas', 'nama_kelas')
+                    ->options(function () {
+                        return \App\Models\Kelas::pluck('nama_kelas', 'id')->toArray();
+                    }),
+                SelectFilter::make('jk')
+                    ->label('Filter Jenis Kelamin')
+                    ->options([
+                        'Laki-laki' => 'Laki-laki',
+                        'Perempuan' => 'Perempuan',
+                    ]),
+            ],layout: FiltersLayout::AboveContent)->filtersFormColumns(3)
             ->recordActions([
+                Action::make('view_pdf')
+                    ->label('View PDF')
+                    ->icon('heroicon-o-eye')
+                    ->button()
+                    ->color('primary')
+                    ->url(function ($record) {
+                        return route('santri.view-pdf', $record->id);
+                    })
+                    ->openUrlInNewTab(),
                 Action::make('download_pdf')
                     ->label('Download PDF')
                     ->icon('heroicon-o-arrow-down-tray')
+                    ->button()
                     ->color('success')
                     ->action(function ($record) {
                         $record->load([
                             'kesehatan',
-                            'catatanPelanggarans.pelanggaran.kategoriPelanggaran'
+                            'catatanPelanggarans.pelanggaran.kategoriPelanggaran',
+                            'kamar',
+                            'kelas',
                         ]);
 
                         // Convert foto ke base64

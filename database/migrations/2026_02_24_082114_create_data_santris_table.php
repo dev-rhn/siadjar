@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('tmp_lhr');
             $table->date('tgl_lhr');
             $table->enum('jk', ['Laki-laki', 'Perempuan']);
+
+            $table->foreignId('kamar_id')->nullable()->constrained('kamars')->onDelete('set null');
+            $table->foreignId('kelas_id')->nullable()->constrained('kelas')->onDelete('set null');
             
             // Data Alamat
             $table->text('alamat');

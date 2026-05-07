@@ -28,6 +28,8 @@ class DataSantri extends Model
         'keterangan',
         'status',
         'tahun_masuk',
+        'kamar_id',
+        'kelas_id',
         'jenjang',
         'nik_ayah',
         'nama_ayah',
@@ -53,5 +55,15 @@ class DataSantri extends Model
     public function catatanPelanggarans()
     {
         return $this->hasMany(CatatanPelanggaran::class, "data_santri_id");
+    }
+
+    public function kamar()
+    {
+        return $this->belongsTo(Kamar::class);
+    }
+
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
     }
 }
