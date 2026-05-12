@@ -43,8 +43,21 @@ class DataSantri extends Model
         'tgl_lhr_ibu',
         'pendidikan_ibu',
         'pekerjaan_ibu',
+        'nik_wali',
+        'nama_wali',
+        'tmp_lhr_wali',
+        'tgl_lhr_wali',
+        'pendidikan_wali',
+        'pekerjaan_wali',
         'foto_santri',
         'foto_kk',
+        'foto_akte',
+        'ijazah',
+        'nilai_rapot',
+        'surat_ket_pindah_sekolah',
+        'surat_ket_dhuafa',
+        'surat_kematian_org_tua',
+        'surat_ket_hak_asuh'
     ];
 
     public function kesehatan()

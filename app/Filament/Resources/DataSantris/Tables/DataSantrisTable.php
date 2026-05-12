@@ -12,6 +12,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ExportAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
@@ -23,10 +24,8 @@ class DataSantrisTable
     {
         return $table
             ->columns([
-                TextColumn::make('nik')
-                    ->label('NIK')
-                    ->searchable()
-                    ->sortable(),
+                ImageColumn::make('foto_santri')
+                    ->label('Foto Santri'),
                 TextColumn::make('nama')
                     ->label('Nama Lengkap')
                     ->searchable()
@@ -34,10 +33,18 @@ class DataSantrisTable
                 TextColumn::make('jk')
                     ->label('Jenis Kelamin')
                     ->sortable(),
-                TextColumn::make('alamat')
-                    ->label('Alamat')
-                    ->limit(50)
-                    ->wrap(),
+                TextColumn::make('keterangan')
+                    ->label('Keterangan')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'Dhuafa'      => 'primary',
+                        'Yatim'       => 'warning',
+                        'Piatu'       => 'info',
+                        'Yatim Piatu' => 'danger',
+                        'Reguler'     => 'success',
+                        default       => 'gray',
+                    })
+                    ->sortable(),
                 TextColumn::make('kamar.nama_kamar')
                     ->label('Kamar')
                     ->badge()
@@ -86,16 +93,16 @@ class DataSantrisTable
                         'Yatim Piatu' => 'Yatim Piatu',
                         'Reguler' => 'Reguler',
                     ]),
-                    SelectFilter::make('tahun_masuk')
-                        ->label('Filter Tahun Masuk')
-                        ->options(function () {
-                            return \App\Models\DataSantri::query()
-                                ->distinct()
-                                ->orderBy('tahun_masuk', 'desc')
-                                ->pluck('tahun_masuk', 'tahun_masuk')
-                                ->toArray();
-                        })
-                        ->placeholder('Semua Tahun'),
+                SelectFilter::make('tahun_masuk')
+                    ->label('Filter Tahun Masuk')
+                    ->options(function () {
+                        return \App\Models\DataSantri::query()
+                            ->distinct()
+                            ->orderBy('tahun_masuk', 'desc')
+                            ->pluck('tahun_masuk', 'tahun_masuk')
+                            ->toArray();
+                    })
+                    ->placeholder('Semua Tahun'),
 
                 SelectFilter::make('kamar_id')
                     ->label('Filter Kamar')
@@ -119,47 +126,22 @@ class DataSantrisTable
             ],layout: FiltersLayout::AboveContent)->filtersFormColumns(3)
             ->recordActions([
                 Action::make('view_pdf')
-                    ->label('View PDF')
-                    ->icon('heroicon-o-eye')
-                    ->button()
-                    ->color('primary')
-                    ->url(function ($record) {
-                        return route('santri.view-pdf', $record->id);
-                    })
-                    ->openUrlInNewTab(),
+                        ->label('View PDF')
+                        ->icon('heroicon-o-eye')
+                        ->button()
+                        ->color('primary')
+                        // Memanggil route yang sudah kita buat di web.php
+                        ->url(fn ($record) => route('santri.view-pdf', $record))
+                        ->openUrlInNewTab(),
+
                 Action::make('download_pdf')
                     ->label('Download PDF')
                     ->icon('heroicon-o-arrow-down-tray')
                     ->button()
                     ->color('success')
-                    ->action(function ($record) {
-                        $record->load([
-                            'kesehatan',
-                            'catatanPelanggarans.pelanggaran.kategoriPelanggaran',
-                            'kamar',
-                            'kelas',
-                        ]);
-
-                        // Convert foto ke base64
-                        $fotoBase64 = null;
-                        if ($record->foto_santri) {
-                            $fullPath = storage_path('app/public/' . $record->foto_santri);
-                            if (file_exists($fullPath)) {
-                                $fotoMime = mime_content_type($fullPath);
-                                $fotoBase64 = 'data:' . $fotoMime . ';base64,' . base64_encode(file_get_contents($fullPath));
-                            }
-                        }
-
-                        $pdf = Pdf::loadView('pdf.santri', [
-                            'santri'     => $record,
-                            'fotoBase64' => $fotoBase64,
-                        ])->setPaper('a4', 'portrait');
-
-                        return response()->streamDownload(
-                            fn () => print($pdf->output()),
-                            "santri-{$record->nisn}-{$record->nama}.pdf"
-                        );
-                    }),
+                    // Untuk download, kita bisa gunakan URL yang sama tapi kirim parameter download
+                    ->url(fn ($record) => route('santri.view-pdf', ['santri' => $record, 'download' => 1]))
+                    ->openUrlInNewTab(),
                 ViewAction::make()
                     ->button()
                     ->color('info'),

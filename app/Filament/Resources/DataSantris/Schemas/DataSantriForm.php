@@ -7,6 +7,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 
 class DataSantriForm
@@ -22,20 +23,17 @@ class DataSantriForm
                             ->label('Nomor Kartu Keluarga')
                             ->helperText('Pastikan nomor KK terdiri dari 16 digit angka.')
                             ->maxLength(16)
-                            ->placeholder('Masukkan Nomor Kartu Keluarga')
-                            ->required(),
+                            ->placeholder('Masukkan Nomor Kartu Keluarga'),
                         TextInput::make('nik')
                             ->label('NIK')
                             ->placeholder('Masukkan NIK')
                             ->helperText('Pastikan NIK terdiri dari 16 digit angka.')
                             ->maxLength(16)
-                            ->required()
                             ->unique(),
                         TextInput::make('nisn')
                             ->label('NISN')
                             ->placeholder('Masukkan NISN')
-                            ->helperText('Pastikan NISN terdiri dari 10 digit angka.')
-                            ->required(),
+                            ->helperText('Pastikan NISN terdiri dari 10 digit angka.'),
                         TextInput::make('nama')
                             ->label('Nama Lengkap')
                             ->placeholder('Masukkan Nama Lengkap')
@@ -72,37 +70,31 @@ class DataSantriForm
                         TextInput::make('rt')
                             ->label('RT')
                             ->placeholder('Masukkan RT')
-                            ->maxLength(3)
-                            ->required(),
+                            ->maxLength(3),
                         TextInput::make('rw')
                             ->label('RW')
                             ->placeholder('Masukkan RW')
-                            ->maxLength(3)
-                            ->required(),
+                            ->maxLength(3),
                         TextInput::make('kel')
                             ->label('Kelurahan')
-                            ->placeholder('Masukkan Kelurahan')
-                            ->required(),
+                            ->placeholder('Masukkan Kelurahan'),
                         TextInput::make('kec')
                             ->label('Kecamatan')
-                            ->placeholder('Masukkan Kecamatan')
-                            ->required(),
+                            ->placeholder('Masukkan Kecamatan'),
                         TextInput::make('kab')
                             ->label('Kabupaten/Kota')
-                            ->placeholder('Masukkan Kabupaten/Kota')
-                            ->required(),
+                            ->placeholder('Masukkan Kabupaten/Kota'),
                         TextInput::make('prov')
                             ->label('Provinsi')
-                            ->placeholder('Masukkan Provinsi')
-                            ->required(),
+                            ->placeholder('Masukkan Provinsi'),
                         TextInput::make('kode_pos')
                             ->label('Kode Pos')
                             ->placeholder('Masukkan Kode Pos')
-                            ->maxLength(5)
-                            ->required(),
+                            ->maxLength(5),
                     ])
                     ->columns(4)
                     ->columnSpanFull(),
+
                 Section::make('Data Pendidikan & Status')
                     ->description('Lengkapi data pendidikan dan status santri dengan benar.')
                     ->schema([
@@ -122,6 +114,7 @@ class DataSantriForm
                                 'Reguler' => 'Reguler',
                             ])
                             ->default('Reguler')
+                            ->live()
                             ->required(),
                         Select::make('status')
                             ->label('Status Santri')
@@ -135,7 +128,6 @@ class DataSantriForm
                         TextInput::make('tahun_masuk')
                             ->label('Tahun Masuk')
                             ->placeholder('Masukkan Tahun Masuk')
-                            ->type('number')
                             ->required(),
                         Select::make('jenjang')
                             ->label('Jenjang')
@@ -156,87 +148,114 @@ class DataSantriForm
                             ->placeholder('Pilih Kamar')
                             ->relationship('kamar', 'nama_kamar')
                             ->required(),
-                    ])
-                    ->columns(3)
-                    ->columnSpanFull(),
-                Section::make('Data Ayah / Wali')
-                    ->description('Lengkapi data ayah/wali santri dengan benar.')
+                ])
+                ->columns(3)
+                ->columnSpanFull(),
+
+                Section::make('Data Ayah')
+                    ->description('Lengkapi data ayah santri dengan benar.')
                     ->schema([
                         TextInput::make('nik_ayah')
-                            ->label('NIK Ayah/Wali')
-                            ->placeholder('Masukkan NIK Ayah/Wali')
-                            ->helperText('Pastikan NIK Ayah/Wali terdiri dari 16 digit angka.')
-                            ->required()
+                            ->label('NIK Ayah')
+                            ->placeholder('Masukkan NIK Ayah')
+                            ->helperText('Pastikan NIK Ayah terdiri dari 16 digit angka.')
                             ->maxLength(16),
                         TextInput::make('nama_ayah')
-                            ->label('Nama Ayah/Wali')
-                            ->placeholder('Masukkan Nama Ayah/Wali')
-                            ->required(),
+                            ->label('Nama Ayah')
+                            ->placeholder('Masukkan Nama Ayah'),
                         TextInput::make('tmp_lhr_ayah')
-                            ->label('Tempat Lahir Ayah/Wali')
-                            ->placeholder('Masukkan Tempat Lahir Ayah/Wali')
-                            ->required(),
+                            ->label('Tempat Lahir Ayah')
+                            ->placeholder('Masukkan Tempat Lahir Ayah'),
                         TextInput::make('tgl_lhr_ayah')
-                            ->label('Tanggal Lahir Ayah/Wali')
-                            ->placeholder('Masukkan Tanggal Lahir Ayah/Wali')
-                            ->required()
+                            ->label('Tanggal Lahir Ayah')
+                            ->placeholder('Masukkan Tanggal Lahir Ayah')
                             ->type('date'),
                         TextInput::make('pendidikan_ayah')
-                            ->label('Pendidikan Ayah/Wali')
-                            ->placeholder('Masukkan Pendidikan Ayah/Wali')
-                            ->required(),
+                            ->label('Pendidikan Ayah')
+                            ->placeholder('Masukkan Pendidikan Ayah'),
                         TextInput::make('pekerjaan_ayah')
-                            ->label('Pekerjaan Ayah/Wali')
-                            ->placeholder('Masukkan Pekerjaan Ayah/Wali')
-                            ->required(),
-                    ])
-                    ->columns(3)
-                    ->columnSpanFull(),
-                Section::make('Data Ibu / Wali')
-                    ->description('Lengkapi data ibu/wali santri dengan benar.')
+                            ->label('Pekerjaan Ayah')
+                            ->placeholder('Masukkan Pekerjaan Ayah'),
+                ])
+                ->columns(3)
+                ->columnSpanFull()
+                ->hidden(fn (Get $get): bool =>
+                    in_array($get('keterangan'), ['Yatim', 'Yatim Piatu'])
+                ),
+
+                Section::make('Data Ibu')
+                    ->description('Lengkapi data ibu santri dengan benar.')
                     ->schema([
                         TextInput::make('nik_ibu')
-                            ->label('NIK Ibu/Wali')
-                            ->placeholder('Masukkan NIK Ibu/Wali')
-                            ->helperText('Pastikan NIK Ibu/Wali terdiri dari 16 digit angka.')
-                            ->required()
+                            ->label('NIK Ibu')
+                            ->placeholder('Masukkan NIK Ibu')
+                            ->helperText('Pastikan NIK Ibu terdiri dari 16 digit angka.')
                             ->maxLength(16),
                         TextInput::make('nama_ibu')
-                            ->label('Nama Ibu/Wali')
-                            ->placeholder('Masukkan Nama Ibu/Wali')
-                            ->required(),
+                            ->label('Nama Ibu')
+                            ->placeholder('Masukkan Nama Ibu'),
                         TextInput::make('tmp_lhr_ibu')
-                            ->label('Tempat Lahir Ibu/Wali')
-                            ->placeholder('Masukkan Tempat Lahir Ibu/Wali')
-                            ->required(),
+                            ->label('Tempat Lahir Ibu')
+                            ->placeholder('Masukkan Tempat Lahir Ibu'),
                         TextInput::make('tgl_lhr_ibu')
-                            ->label('Tanggal Lahir Ibu/Wali')
-                            ->placeholder('Masukkan Tanggal Lahir Ibu/Wali')
-                            ->type('date')
-                            ->required(),
+                            ->label('Tanggal Lahir Ibu')
+                            ->placeholder('Masukkan Tanggal Lahir Ibu')
+                            ->type('date'),
                         TextInput::make('pendidikan_ibu')
-                            ->label('Pendidikan Ibu/Wali')
-                            ->placeholder('Masukkan Pendidikan Ibu/Wali')
-                            ->required(),
+                            ->label('Pendidikan Ibu')
+                            ->placeholder('Masukkan Pendidikan Ibu'),
                         TextInput::make('pekerjaan_ibu')
-                            ->label('Pekerjaan Ibu/Wali')
-                            ->placeholder('Masukkan Pekerjaan Ibu/Wali')
-                            ->required(),
+                            ->label('Pekerjaan Ibu')
+                            ->placeholder('Masukkan Pekerjaan Ibu'),
                     ])
                     ->columns(3)
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->hidden(fn (Get $get): bool =>
+                        in_array($get('keterangan'), ['Piatu', 'Yatim Piatu'])
+                    ),
+
+                Section::make('Data Wali')
+                    ->description('Lengkapi data ibu/wali santri dengan benar.')
+                    ->schema([
+                        TextInput::make('nik_wali')
+                            ->label('NIK Wali')
+                            ->placeholder('Masukkan NIK Wali')
+                            ->helperText('Pastikan NIK Wali terdiri dari 16 digit angka.')
+                            ->maxLength(16),
+                        TextInput::make('nama_wali')
+                            ->label('Nama Wali')
+                            ->placeholder('Masukkan Nama Wali'),
+                        TextInput::make('tmp_lhr_wali')
+                            ->label('Tempat Lahir Wali')
+                            ->placeholder('Masukkan Tempat Lahir Wali'),
+                        TextInput::make('tgl_lhr_wali')
+                            ->label('Tanggal Lahir Wali')
+                            ->placeholder('Masukkan Tanggal Lahir Wali')
+                            ->type('date'),
+                        TextInput::make('pendidikan_wali')
+                            ->label('Pendidikan Wali')
+                            ->placeholder('Masukkan Pendidikan Wali'),
+                        TextInput::make('pekerjaan_wali')
+                            ->label('Pekerjaan Wali')
+                            ->placeholder('Masukkan Pekerjaan Wali'),
+                    ])
+                    ->columns(3)
+                    ->columnSpanFull()
+                    ->hidden(fn (Get $get): bool =>
+                        ! in_array($get('keterangan'), ['Yatim Piatu'])
+                    ),
                 Section::make('Dokumen Pendukung')
-                    ->description('Unggah foto santri dan scan Kartu Keluarga dalam format JPG/PNG.')
+                    ->description('Unggah dokumen sesuai dengan status keterangan santri.')
                     ->schema([
                         Grid::make(2)
                             ->schema([
+                                // --- KELOMPOK REGULER (Selalu Muncul) ---
                                 FileUpload::make('foto_santri')
                                     ->image()
                                     ->disk('public')
-                                    ->directory('santri/foto') 
+                                    ->directory('santri/foto')
                                     ->imageEditor()
                                     ->maxSize(2048)
-                                    ->visibility('public')
                                     ->label('Foto Santri')
                                     ->helperText('Gunakan latar belakang biru/merah, max 2MB.'),
 
@@ -245,11 +264,81 @@ class DataSantriForm
                                     ->disk('public')
                                     ->directory('santri/kk')
                                     ->label('Foto Kartu Keluarga')
-                                    ->visibility('public')
+                                    ->maxSize(5120)
                                     ->imageEditor()
-                                    ->helperText('Pastikan seluruh bagian KK terlihat jelas.'),
+                                    ->helperText('Pastikan seluruh bagian KK terlihat jelas, max 5MB.'),
+
+                                FileUpload::make('foto_akte')
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('santri/akte')
+                                    ->label('Foto Akte Kelahiran')
+                                    ->maxSize(5120)
+                                    ->imageEditor()
+                                    ->helperText('Maksimal 5MB.'),
+
+                                FileUpload::make('ijazah')
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('santri/ijazah')
+                                    ->label('Foto Ijazah Terakhir')
+                                    ->maxSize(5120)
+                                    ->imageEditor()
+                                    ->helperText('Maksimal 5MB.'),
+
+                                FileUpload::make('nilai_rapot')
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('santri/rapot')
+                                    ->label('Foto Nilai Rapot Terakhir')
+                                    ->maxSize(5120)
+                                    ->imageEditor()
+                                    ->helperText('Maksimal 5MB.'),
+
+                                FileUpload::make('surat_ket_pindah_sekolah')
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('santri/pindah')
+                                    ->label('Surat Pindah Sekolah (Opsional)')
+                                    ->maxSize(5120)
+                                    ->imageEditor()
+                                    ->helperText('Unggah jika santri pindahan.'),
+
+                                // --- KELOMPOK DHUAFA (Hanya muncul jika status Dhuafa) ---
+                                FileUpload::make('surat_ket_dhuafa')
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('santri/dhuafa')
+                                    ->label('Foto Surat Keterangan Dhuafa (Opsional)')
+                                    ->maxSize(5120)
+                                    ->imageEditor()
+                                    ->visible(fn (Get $get) => $get('keterangan') === 'Dhuafa')
+                                    ->helperText('Unggah bagi santri Dhuafa.'),
+
+                                // --- KELOMPOK YATIM/PIATU (Muncul jika Yatim, Piatu, atau Yatim Piatu) ---
+                                FileUpload::make('surat_kematian_org_tua')
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('santri/kematian')
+                                    ->label('Foto Surat Kematian Orang Tua (Opsional)')
+                                    ->maxSize(5120)
+                                    ->imageEditor()
+                                    ->visible(fn (Get $get) => in_array($get('keterangan'), ['Yatim', 'Piatu', 'Yatim Piatu']))
+                                    ->helperText('Unggah bagi santri Yatim, Piatu, atau Yatim Piatu.'),
+
+                                // --- KELOMPOK YATIM PIATU KHUSUS ---
+                                FileUpload::make('surat_ket_hak_asuh')
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('santri/hak_asuh')
+                                    ->label('Foto Surat Keterangan Hak Asuh (Opsional)')
+                                    ->maxSize(5120)
+                                    ->imageEditor()
+                                    ->visible(fn (Get $get) => $get('keterangan') === 'Yatim Piatu')
+                                    ->helperText('Unggah bagi santri Yatim Piatu.'),
                             ]),
-                    ])->collapsible()
+                    ])
+                    ->collapsible()
                     ->columnSpanFull(),
             ]);
     }
