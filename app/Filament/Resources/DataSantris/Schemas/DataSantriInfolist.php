@@ -95,9 +95,13 @@ class DataSantriInfolist
                                 default => 'gray',
                             }),
                     ]),
-                Section::make('Data Orang Tua/Wali')
+
+                Section::make('Data Ayah')
                     ->columns(3)
                     ->columnSpanFull()
+                    ->hidden(fn ($record): bool =>
+                        in_array($record?->keterangan, ['Yatim', 'Yatim Piatu'])
+                    )
                     ->components([
                         TextEntry::make('nik_ayah')
                             ->label('NIK Ayah'),
@@ -106,12 +110,21 @@ class DataSantriInfolist
                         TextEntry::make('tmp_lhr_ayah')
                             ->label('Tempat Lahir Ayah'),
                         TextEntry::make('tgl_lhr_ayah')
-                            ->label('Tanggal Lahir Ayah'),
+                            ->label('Tanggal Lahir Ayah')
+                            ->date(),
                         TextEntry::make('pekerjaan_ayah')
                             ->label('Pekerjaan Ayah'),
                         TextEntry::make('pendidikan_ayah')
                             ->label('Pendidikan Ayah'),
+                    ]),
 
+                Section::make('Data Ibu')
+                    ->columns(3)
+                    ->columnSpanFull()
+                    ->hidden(fn ($record): bool =>
+                        in_array($record?->keterangan, ['Piatu', 'Yatim Piatu'])
+                    )
+                    ->components([
                         TextEntry::make('nik_ibu')
                             ->label('NIK Ibu'),
                         TextEntry::make('nama_ibu')
@@ -119,11 +132,46 @@ class DataSantriInfolist
                         TextEntry::make('tmp_lhr_ibu')
                             ->label('Tempat Lahir Ibu'),
                         TextEntry::make('tgl_lhr_ibu')
-                            ->label('Tanggal Lahir Ibu'),
+                            ->label('Tanggal Lahir Ibu')
+                            ->date(),
                         TextEntry::make('pekerjaan_ibu')
                             ->label('Pekerjaan Ibu'),
                         TextEntry::make('pendidikan_ibu')
                             ->label('Pendidikan Ibu'),
+                    ]),
+
+                Section::make('Data Wali')
+                    ->columns(3)
+                    ->columnSpanFull()
+                    ->hidden(fn ($record): bool =>
+                        ! in_array($record?->keterangan, ['Yatim Piatu'])
+                    )
+                    ->components([
+                        TextEntry::make('nik_wali')
+                            ->label('NIK Wali'),
+                        TextEntry::make('nama_wali')
+                            ->label('Nama Wali'),
+                        TextEntry::make('tmp_lhr_wali')
+                            ->label('Tempat Lahir Wali'),
+                        TextEntry::make('tgl_lhr_wali')
+                            ->label('Tanggal Lahir Wali')
+                            ->date(),
+                        TextEntry::make('pekerjaan_wali')
+                            ->label('Pekerjaan Wali'),
+                        TextEntry::make('pendidikan_wali')
+                            ->label('Pendidikan Wali'),
+                    ]),
+
+                Section::make('Informasi Tambahan')
+                    ->columns(2)
+                    ->columnSpanFull()
+                    ->components([
+                        TextEntry::make('created_at')
+                            ->label('Dibuat Pada')
+                            ->dateTime('d M Y H:i'),
+                        TextEntry::make('updated_at')
+                            ->label('Diperbarui Pada')
+                            ->dateTime('d M Y H:i'),
                     ]),
                 Section::make('Informasi Tambahan')
                     ->columns(2)
@@ -137,22 +185,45 @@ class DataSantriInfolist
                             ->dateTime('d M Y H:i'),
                     ]),
 
-                Section::make("Dokumen & Foto")
-                    ->columns(2)
-                    ->columnSpanFull()
-                    ->components([
-                        ImageEntry::make('foto_santri')
-                            ->label('Foto Santri')
-                            ->circular()
-                            ->extraImgAttributes([
-                                'alt' => 'Foto Santri',
-                                'loading' => 'lazy',
-                            ]),
+            Section::make("Dokumen Pendukung")
+                ->columns(2)
+                ->columnSpanFull()
+                ->schema([
+                    // --- KELOMPOK REGULER (Selalu Muncul) ---
+                    ImageEntry::make('foto_santri')
+                        ->label('Foto Santri'),
 
-                        ImageEntry::make('foto_kk')
-                            ->label('Foto Kartu Keluarga')
-                            ->grow(false), 
-                    ]),
+                    ImageEntry::make('foto_kk')
+                        ->label('Foto Kartu Keluarga'),
+
+                    ImageEntry::make('foto_akte')
+                        ->label('Foto Akte Kelahiran'),
+
+                    ImageEntry::make('ijazah')
+                        ->label('Foto Ijazah Terakhir'),
+
+                    ImageEntry::make('nilai_rapot')
+                        ->label('Foto Nilai Rapot Terakhir'),
+
+                    ImageEntry::make('surat_ket_pindah_sekolah')
+                        ->label('Surat Pindah Sekolah')
+                        ->visible(fn ($record) => $record->surat_ket_pindah_sekolah !== null),
+
+                    // --- KELOMPOK DHUAFA ---
+                    ImageEntry::make('surat_ket_dhuafa')
+                        ->label('Surat Keterangan Dhuafa')
+                        ->visible(fn ($record) => $record->keterangan === 'Dhuafa'),
+
+                    // --- KELOMPOK YATIM/PIATU ---
+                    ImageEntry::make('surat_kematian_org_tua')
+                        ->label('Surat Kematian Orang Tua')
+                        ->visible(fn ($record) => in_array($record->keterangan, ['Yatim', 'Piatu', 'Yatim Piatu'])),
+
+                    // --- KELOMPOK YATIM PIATU KHUSUS ---
+                    ImageEntry::make('surat_ket_hak_asuh')
+                        ->label('Surat Keterangan Hak Asuh')
+                        ->visible(fn ($record) => $record->keterangan === 'Yatim Piatu'),
+                ]),
             ]);
     }
 }
