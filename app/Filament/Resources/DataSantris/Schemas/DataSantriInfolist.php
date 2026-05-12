@@ -191,37 +191,55 @@ class DataSantriInfolist
                 ->schema([
                     // --- KELOMPOK REGULER (Selalu Muncul) ---
                     ImageEntry::make('foto_santri')
-                        ->label('Foto Santri'),
+                        ->label('Foto Santri')
+                        ->disk('public')
+                        ->visibility('public'),
 
                     ImageEntry::make('foto_kk')
-                        ->label('Foto Kartu Keluarga'),
+                        ->label('Foto Kartu Keluarga')
+                        ->disk('public')
+                        ->visibility('public'),
 
                     ImageEntry::make('foto_akte')
-                        ->label('Foto Akte Kelahiran'),
+                        ->label('Foto Akte Kelahiran')
+                        ->disk('public')
+                        ->visibility('public'),
 
                     ImageEntry::make('ijazah')
-                        ->label('Foto Ijazah Terakhir'),
+                        ->label('Foto Ijazah Terakhir')
+                        ->disk('public')
+                        ->visibility('public'),
 
                     ImageEntry::make('nilai_rapot')
-                        ->label('Foto Nilai Rapot Terakhir'),
+                        ->label('Foto Nilai Rapot Terakhir')
+                        ->disk('public')
+                        ->visibility('public'),
 
                     ImageEntry::make('surat_ket_pindah_sekolah')
                         ->label('Surat Pindah Sekolah')
+                        ->disk('public')
+                        ->visibility('public')
                         ->visible(fn ($record) => $record->surat_ket_pindah_sekolah !== null),
 
                     // --- KELOMPOK DHUAFA ---
                     ImageEntry::make('surat_ket_dhuafa')
                         ->label('Surat Keterangan Dhuafa')
+                        ->disk('public')
+                        ->visibility('public')
                         ->visible(fn ($record) => $record->keterangan === 'Dhuafa'),
 
                     // --- KELOMPOK YATIM/PIATU ---
                     ImageEntry::make('surat_kematian_org_tua')
                         ->label('Surat Kematian Orang Tua')
+                        ->disk('public')
+                        ->visibility('public')
                         ->visible(fn ($record) => in_array($record->keterangan, ['Yatim', 'Piatu', 'Yatim Piatu'])),
 
                     // --- KELOMPOK YATIM PIATU KHUSUS ---
                     ImageEntry::make('surat_ket_hak_asuh')
                         ->label('Surat Keterangan Hak Asuh')
+                        ->disk('public')
+                        ->visibility('public')
                         ->visible(fn ($record) => $record->keterangan === 'Yatim Piatu'),
                 ]),
             ]);
