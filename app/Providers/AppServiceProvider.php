@@ -24,5 +24,9 @@ class AppServiceProvider extends ServiceProvider
         FilamentAsset::register([
             Css::make('custom-stylesheet', resource_path('css/filament/admin/custom.css')),
         ]);
+
+        if (env('APP_ENV') === 'production') {
+        URL::forceScheme('https');
+    }
     }
 }
