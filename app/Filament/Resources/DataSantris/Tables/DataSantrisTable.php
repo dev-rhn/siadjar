@@ -97,6 +97,8 @@ class DataSantrisTable
                     ->label('Filter Tahun Masuk')
                     ->options(function () {
                         return \App\Models\DataSantri::query()
+                            ->whereNotNull('tahun_masuk')
+                            ->where('tahun_masuk', '!=', '')
                             ->distinct()
                             ->orderBy('tahun_masuk', 'desc')
                             ->pluck('tahun_masuk', 'tahun_masuk')
