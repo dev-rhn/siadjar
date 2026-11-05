@@ -45,7 +45,8 @@ class Surat extends Model
         $bulan = $tanggal->month;
         $tahun = $tanggal->year;
 
-        $kodeArah = $arah === 'Masuk' ? 'M' : 'K';
+        // A = surat masuk, B = surat keluar (same convention as the yayasan's letter register)
+        $kodeArah = $arah === 'Masuk' ? 'A' : 'B';
 
         $jenis = JenisSurat::find($jenisSuratId);
         $kodeAngka = $jenis->kode_angka;
