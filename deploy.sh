@@ -72,8 +72,16 @@ log "Caching config, routes, views and Filament components"
 "$PHP" artisan filament:optimize
 
 log "Fixing permissions"
-chgrp -R "$WEB_GROUP" storage bootstrap/cache 2>/dev/null || true
-chmod -R ug+rwX storage bootstrap/cache
+# Files written by PHP-FPM (logs, uploads, exports) are owned by the web user,
+# so the deploy user cannot chmod them. Use passwordless sudo when available,
+# and never let a permission tweak abort the deploy.
+SUDO=""
+if [ "$(id -u)" -ne 0 ] && sudo -n true 2>/dev/null; then
+    SUDO="sudo -n"
+fi
+$SUDO chgrp -R "$WEB_GROUP" storage bootstrap/cache 2>/dev/null || true
+$SUDO chmod -R ug+rwX storage bootstrap/cache 2>/dev/null \
+    || echo "Warning: could not fix all permissions in storage/ and bootstrap/cache."
 
 log "Restarting queue workers"
 "$PHP" artisan queue:restart
