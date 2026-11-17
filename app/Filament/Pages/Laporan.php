@@ -2,11 +2,14 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Support\AksesLinkNotification;
 use App\Reports\BaseReport;
 use App\Reports\ReportRegistry;
+use App\Reports\Support\SantriPreviewLink;
 use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\Actions;
@@ -52,6 +55,8 @@ class Laporan extends Page
             'report' => $slug,
             'orientasi' => $report?->defaultOrientation() ?? 'portrait',
             'filters' => $report?->defaultFilters() ?? [],
+            'link_preview' => true,
+            'pin' => false,
         ]);
     }
 
@@ -86,6 +91,19 @@ class Laporan extends Page
                     ->statePath('filters')
                     ->columns(3)
                     ->key('filters-section'),
+                Section::make('Link Preview Santri')
+                    ->description('Nama santri di PDF bisa diklik untuk membuka data santri tanpa login.')
+                    ->schema([
+                        Toggle::make('link_preview')
+                            ->label('Sertakan link preview santri')
+                            ->helperText('Link berlaku '.SantriPreviewLink::masaBerlakuHari().' hari. Siapa pun yang memegang PDF bisa membuka data semua santri di dalamnya, jadi perlakukan PDF sebagai dokumen rahasia.')
+                            ->live(),
+                        Toggle::make('pin')
+                            ->label('Lindungi dengan PIN')
+                            ->helperText('PIN 6 digit ditampilkan sekali setelah PDF dibuat. Bagikan terpisah dari PDF.')
+                            ->visible(fn (Get $get) => (bool) $get('link_preview')),
+                    ])
+                    ->columns(2),
             ])
             ->statePath('data');
     }
@@ -164,10 +182,21 @@ class Laporan extends Page
             return null;
         }
 
+        $denganLink = (bool) ($state['link_preview'] ?? false);
+        $pinToken = null;
+
+        if ($denganLink && ! empty($state['pin'])) {
+            $pin = SantriPreviewLink::buatPin();
+            $pinToken = SantriPreviewLink::titipkanPin($pin);
+            AksesLinkNotification::pin($pin);
+        }
+
         return route('laporan.pdf', array_filter([
             'slug' => $report::slug(),
             'orientasi' => $state['orientasi'],
             'filters' => $filters ?: null,
+            'link' => $denganLink ? 1 : null,
+            'pin_token' => $pinToken,
             'unduh' => $download ? 1 : null,
         ]));
     }

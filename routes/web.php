@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ReportPdfController;
 use App\Http\Controllers\SantriPdfController;
+use App\Http\Controllers\SantriPreviewController;
 use App\Models\DataSantri;
 use Illuminate\Support\Facades\Route;
 
@@ -37,3 +38,13 @@ Route::middleware(['auth'])->prefix('laporan')->name('laporan.')->group(function
     Route::get('/{slug}/pdf', [ReportPdfController::class, 'generate'])
         ->name('pdf');
 });
+
+// Preview santri tanpa login dari link di PDF laporan (akses dikendalikan per arsip)
+Route::prefix('p/{kunci}/{santri}/{tandaTangan}')
+    ->where(['kunci' => '[A-Za-z0-9]{40}', 'santri' => '[0-9]+', 'tandaTangan' => '[a-f0-9]{32}'])
+    ->middleware('throttle:60,1')
+    ->name('santri-preview.')
+    ->group(function () {
+        Route::get('/', [SantriPreviewController::class, 'show'])->name('show');
+        Route::post('/', [SantriPreviewController::class, 'submitPin'])->name('pin');
+    });
