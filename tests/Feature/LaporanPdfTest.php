@@ -228,6 +228,7 @@ class LaporanPdfTest extends TestCase
                 'slug' => 'santri',
                 'orientasi' => 'landscape',
                 'filters' => ['status' => 'Aktif'],
+                'link' => 1,
                 'unduh' => 1,
             ]));
     }

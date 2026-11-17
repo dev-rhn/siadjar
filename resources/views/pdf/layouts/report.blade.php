@@ -129,6 +129,18 @@
             background: #f8b4b4;
         }
 
+        /* Link preview santri: tampil seperti teks biasa agar rapi saat dicetak di kertas */
+        a.link-santri {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .catatan-link {
+            margin-bottom: 6px;
+            font-style: italic;
+            color: #555;
+        }
+
         .tabel-tambahan {
             margin-top: 16px;
         }

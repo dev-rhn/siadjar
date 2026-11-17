@@ -100,7 +100,7 @@ class PelanggaranReport extends BaseReport
     {
         return [
             'tanggal' => ['label' => 'Tanggal', 'width' => '11%'],
-            'nama' => ['label' => 'Nama Santri', 'width' => '17%'],
+            'nama' => ['label' => 'Nama Santri', 'width' => '17%', 'link' => true],
             'kelas' => ['label' => 'Kelas', 'width' => '8%'],
             'kamar' => ['label' => 'Kamar', 'width' => '8%'],
             'pelanggaran' => ['label' => 'Pelanggaran', 'width' => '18%'],
@@ -118,6 +118,7 @@ class PelanggaranReport extends BaseReport
         return [
             'tanggal' => $this->formatTanggal($record->tanggal_kejadian),
             'nama' => $record->dataSantri?->nama,
+            '_santri_id' => $record->data_santri_id,
             'kelas' => $record->dataSantri?->kelas?->nama_kelas,
             'kamar' => $record->dataSantri?->kamar?->nama_kamar,
             'pelanggaran' => $record->pelanggaran?->nama_pelanggaran,
@@ -156,7 +157,7 @@ class PelanggaranReport extends BaseReport
         return [[
             'title' => 'Rekap Poin per Santri ('.StatusPoin::keterangan().')',
             'columns' => [
-                'nama' => ['label' => 'Nama Santri', 'width' => '35%'],
+                'nama' => ['label' => 'Nama Santri', 'width' => '35%', 'link' => true],
                 'kelas' => ['label' => 'Kelas', 'width' => '15%'],
                 'kamar' => ['label' => 'Kamar', 'width' => '15%'],
                 'kejadian' => ['label' => 'Kejadian', 'width' => '10%', 'align' => 'center'],
@@ -230,6 +231,7 @@ class PelanggaranReport extends BaseReport
 
                 return [
                     'nama' => $santri?->nama,
+                    '_santri_id' => $items->first()->data_santri_id,
                     'kelas' => $santri?->kelas?->nama_kelas,
                     'kamar' => $santri?->kamar?->nama_kamar,
                     'kejadian' => $items->count(),
