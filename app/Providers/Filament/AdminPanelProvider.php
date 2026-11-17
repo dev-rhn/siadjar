@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Laporan;
 use App\Filament\Widgets\QuickAccessWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -35,6 +36,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->pages([
                 Dashboard::class,
+                Laporan::class,
             ])
             ->databaseNotifications()
             ->widgets([
@@ -67,6 +69,10 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label('Kepegawaian')
                     ->icon(Heroicon::OutlinedUsers)
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Laporan')
+                    ->icon(Heroicon::OutlinedDocumentChartBar)
                     ->collapsed(),
             ])
             ->authMiddleware([
