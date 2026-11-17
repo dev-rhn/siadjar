@@ -93,7 +93,7 @@ class KesehatanReport extends BaseReport
     {
         return [
             'tanggal' => ['label' => 'Tanggal Sakit', 'width' => '11%'],
-            'nama' => ['label' => 'Nama Santri', 'width' => '17%'],
+            'nama' => ['label' => 'Nama Santri', 'width' => '17%', 'link' => true],
             'kelas' => ['label' => 'Kelas', 'width' => '8%'],
             'kamar' => ['label' => 'Kamar', 'width' => '8%'],
             'penyakit' => ['label' => 'Penyakit', 'width' => '15%'],
@@ -111,6 +111,7 @@ class KesehatanReport extends BaseReport
         return [
             'tanggal' => $this->formatTanggal($record->tanggal_sakit),
             'nama' => $record->dataSantri?->nama,
+            '_santri_id' => $record->data_santri_id,
             'kelas' => $record->dataSantri?->kelas?->nama_kelas,
             'kamar' => $record->dataSantri?->kamar?->nama_kamar,
             'penyakit' => $record->nama_penyakit,

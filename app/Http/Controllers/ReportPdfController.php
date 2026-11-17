@@ -6,6 +6,7 @@ use App\Models\LaporanArsip;
 use App\Reports\BaseReport;
 use App\Reports\ReportPdfGenerator;
 use App\Reports\ReportRegistry;
+use App\Reports\Support\SantriPreviewLink;
 use Filament\Facades\Filament;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -24,7 +25,16 @@ class ReportPdfController extends Controller
         $options = $request->validate([
             'orientasi' => ['nullable', Rule::in(array_keys(BaseReport::ORIENTATIONS))],
             'unduh' => ['nullable', 'boolean'],
+            'link' => ['nullable', 'boolean'],
+            'pin_token' => ['nullable', 'string', 'size:'.SantriPreviewLink::PANJANG_TOKEN_PIN],
         ]);
+
+        $denganLink = $request->boolean('link');
+
+        // PIN dibuat di halaman Cetak Laporan (agar bisa ditampilkan ke admin) dan dititipkan di session.
+        $pin = $denganLink && isset($options['pin_token'])
+            ? $request->session()->pull(SantriPreviewLink::PIN_SESSION_PREFIX.$options['pin_token'])
+            : null;
 
         $input = $request->input('filters', []);
         $filters = $report->validateFilters(is_array($input) ? $input : []);
@@ -43,6 +53,8 @@ class ReportPdfController extends Controller
             $filters,
             $options['orientasi'] ?? $report->defaultOrientation(),
             $request->user(),
+            $denganLink,
+            is_string($pin) ? $pin : null,
         );
 
         return response($generated->content, Response::HTTP_OK, [

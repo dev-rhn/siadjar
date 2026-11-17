@@ -56,6 +56,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Link Preview Santri
+    |--------------------------------------------------------------------------
+    |
+    | Nama santri di PDF bisa diklik untuk membuka halaman preview tanpa login.
+    | Akses dikendalikan per PDF (arsip): masa berlaku, cabut, dan PIN opsional.
+    |
+    */
+
+    'link_preview' => [
+        'masa_berlaku_hari' => (int) env('LAPORAN_LINK_MASA_BERLAKU_HARI', 30),
+        'pin_sesi_menit' => 120,
+        'pin_maks_percobaan' => 5,
+        'pin_kunci_menit' => 15,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Daftar Laporan
     |--------------------------------------------------------------------------
     |

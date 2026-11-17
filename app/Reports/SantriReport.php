@@ -101,7 +101,7 @@ class SantriReport extends BaseReport
     {
         return [
             'nisn' => ['label' => 'NISN', 'width' => '11%'],
-            'nama' => ['label' => 'Nama', 'width' => '20%'],
+            'nama' => ['label' => 'Nama', 'width' => '20%', 'link' => true],
             'jk' => ['label' => 'JK', 'width' => '5%', 'align' => 'center'],
             'ttl' => ['label' => 'Tempat, Tgl Lahir', 'width' => '18%'],
             'jenjang' => ['label' => 'Jenjang', 'width' => '7%', 'align' => 'center'],
@@ -124,6 +124,7 @@ class SantriReport extends BaseReport
         return [
             'nisn' => $record->nisn,
             'nama' => $record->nama,
+            '_santri_id' => $record->id,
             'jk' => match ($record->jk) {
                 'Laki-laki' => 'L',
                 'Perempuan' => 'P',

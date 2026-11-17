@@ -23,6 +23,12 @@
         </tr>
     </table>
 
+    @if (! empty($aksesBerlakuSampai))
+        <div class="catatan-link">
+            Klik nama santri untuk melihat detail. Link berlaku sampai {{ $aksesBerlakuSampai }}{{ ! empty($aksesDenganPin) ? ' dan dilindungi PIN' : '' }}.
+        </div>
+    @endif
+
     @include('pdf.partials.table', ['columns' => $result->columns, 'rows' => $result->rows])
 
     @if ($result->summary !== [])
